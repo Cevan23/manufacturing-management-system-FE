@@ -17,6 +17,7 @@ import { Card } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AppLoader } from "../../components";
 import { Chatbot } from "../../services/ChatbotServices";
+import { CustomButton } from "../../components";
 
 const ProductManagerHome = () => {
 	const { token, userId } = useGlobalContext();
@@ -114,16 +115,20 @@ const ProductManagerHome = () => {
 					backgroundColor: "#000",
 				}}
 			>
-				<View>
+				<View
+					style={{
+						height: 160,
+					}}
+				>
 					<Text style={{ fontWeight: "bold", marginBottom: 5, color: "white" }}>
 						Chatbot:{" "}
 					</Text>
 					<ScrollView
 						style={{
-							maxHeight: 100,
-							marginBottom: 10,
+							maxHeight: 160,
+							marginBottom: 3,
 						}}
-						contentContainerStyle={{ padding: 10 }}
+						contentContainerStyle={{ padding: 2 }}
 						nestedScrollEnabled={true}
 					>
 						{response && (
@@ -136,7 +141,6 @@ const ProductManagerHome = () => {
 									borderWidth: 0,
 									marginBottom: 10,
 									color: "white",
-									maxHeight: 100,
 								}}
 							>
 								{response}
@@ -154,31 +158,62 @@ const ProductManagerHome = () => {
 				style={{
 					borderColor: "#fff",
 					borderWidth: 1,
-					maxHeight: 200,
+					maxHeight: 300,
 					borderRadius: 10,
-					padding: 10,
+					padding: 3,
 					backgroundColor: "#000",
+					marginTop: 20,
 				}}
 			>
-				<Text style={{ fontWeight: "bold", margin: 0, color: "white" }}>
+				<Text
+					style={{
+						fontWeight: "bold",
+						margin: 5,
+						marginLeft: 20,
+						color: "white",
+					}}
+				>
 					You:{" "}
 				</Text>
-				<TextInput
-					style={{
-						height: 40,
-						backgroundColor: "#fff",
-						borderColor: "gray",
-						borderWidth: 1,
-						borderRadius: 5,
-						paddingHorizontal: 10,
-						margin: 10,
-					}}
-					value={input}
-					onChangeText={handleInputChange}
-					placeholder="Enter chat content here..."
-				/>
+				<View className="flex-row mb-2">
+					<ScrollView
+						style={{
+							maxHeight: 180,
+							marginBottom: 3,
+						}}
+						contentContainerStyle={{ padding: 2 }}
+						nestedScrollEnabled={true}
+					>
+						<TextInput
+							style={{
+								height: 40,
+								backgroundColor: "#000",
+								borderColor: "gray",
+								borderWidth: 0,
+								borderRadius: 5,
+								paddingHorizontal: 10,
+								margin: 5,
+								width: "90%",
+								color: "white",
+							}}
+							multiline
+							value={input}
+							onChangeText={handleInputChange}
+							placeholder="Enter chat content here..."
+							placeholderTextColor="white"
+						/>
+					</ScrollView>
+					<CustomButton
+						icon={"arrow-up"}
+						iconSize={25}
+						containerStyles="p-0 self-end right-4 h-12 w-12 rounded-full bg-slate-500 items-center justify-center ml-5"
+						handlePress={() => {
+							handleSubmit();
+							setInput("");
+						}}
+					/>
+				</View>
 			</Card>
-			<Button title="Submit" onPress={handleSubmit} color="orange" />
 		</SafeAreaView>
 	);
 };
